@@ -12,7 +12,9 @@ describe DockingStation do
   end
 
   it "should not release a broken bike" do
-    station.dock(Bike.new.report_broken)
+    bike = Bike.new
+    bike.report_broken
+    station.dock(bike)
     expect{ station.release_bike }.to raise_error("There are no bikes available.")
   end
 

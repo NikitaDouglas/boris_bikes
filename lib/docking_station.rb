@@ -11,8 +11,22 @@ class DockingStation
 
   DEFAULT_CAPACITY = 20
 
+  #function that iterates through bike_check, finds the first working bike and returns that
+  #if no working bikes then return false
+
+  def find_working_bike
+    @bike_check.each_with_index do |bike, i|
+      if bike.working?
+        true
+      else
+        false
+      end
+    end
+  end
+
+
   def release_bike
-    unless empty?
+    if find_working_bike
       @bike_check.pop  ## possibly pops a broken bike
     else
       fail("There are no bikes available.")
@@ -34,8 +48,9 @@ class DockingStation
   end
 
   def empty?
-    n = 0
-    @bike_check.each { |bike| n += 1 if bike.working? }
-    n == 0
+    @bike_check.empty?
+    #n = 0
+    #@bike_check.each { |bike| n += 1 if bike.working? }
+    #n == 0
   end
 end
